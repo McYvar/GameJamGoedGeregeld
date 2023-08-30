@@ -16,10 +16,13 @@ public class PlayerMovement : MonoBehaviour
     private bool leftInput;
     private bool rightInput;
 
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,11 +38,17 @@ public class PlayerMovement : MonoBehaviour
             moveDirection += 1;
         }
         rb.velocity = new Vector2(speed * moveDirection, rb.velocity.y);
+        if (moveDirection != 0) animator.SetBool("isWalking", true);
+        else animator.SetBool("isWalking", false);
+
+        if (moveDirection > 0) transform.localEulerAngles = new Vector3(0, 0, 0);
+        else if (moveDirection < 0) transform.localEulerAngles = new Vector3(0, 180, 0);
+        animator.SetBool("isGrounded", IsGrounded());
     }
 
     private bool IsGrounded()
     {
-        return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + Vector2.down * transform.localScale.y / 2, Vector2.down, 0.1f, GroundLayer);
+        return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.down, 0.1f, GroundLayer);
     }
 
     public void MoveLeft(InputAction.CallbackContext cc)
@@ -87,6 +96,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y) + Vector3.down * transform.localScale.y / 2, 0.1f);
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y), 0.1f);
     }
 }
