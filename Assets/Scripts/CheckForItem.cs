@@ -30,9 +30,20 @@ public class CheckForItem : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+        //Checkt voor Stone tag en of je de pickaxe hebt
         if (other.gameObject.CompareTag("Stone") && hasPickaxe)
         {
-            Debug.Log("implement stone behaviour");
+            Destroy(other.gameObject);
+        }
+
+        //Checkt voor als je de tag hebt
+        if (other.gameObject.CompareTag("Axe"))
+        {
+            hasAxe = true;
+            Destroy (other.gameObject);
+        }
+        if (other.gameObject.CompareTag("BrokenTree") && hasAxe)
+        {
             Destroy(other.gameObject);
         }
 
