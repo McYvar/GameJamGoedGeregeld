@@ -41,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
         if (moveDirection != 0) animator.SetBool("isWalking", true);
         else animator.SetBool("isWalking", false);
 
-        if (moveDirection > 0) transform.localEulerAngles = new Vector3(0, 0, 0);
-        else if (moveDirection < 0) transform.localEulerAngles = new Vector3(0, 180, 0);
+        if (moveDirection > 0) transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 0, transform.localEulerAngles.z);
+        else if (moveDirection < 0) transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 180, transform.localEulerAngles.z);
         animator.SetBool("isGrounded", IsGrounded());
     }
 
