@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.down, 0.1f, GroundLayer);
+        return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.down, 0.5f, GroundLayer);
     }
 
     public void MoveLeft(InputAction.CallbackContext cc)
